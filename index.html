@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Red UI</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            overflow: hidden;
+            position: relative;
+        }
+        #linear1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,0,0,0.8), rgba(255,0,0,0.4));
+            z-index: -1;
+        }
+        #particle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            animation: particleAnimation 5s infinite;
+        }
+        @keyframes particleAnimation {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(200%, -200%) scale(0); opacity: 0; }
+        }
+        .centered {
+            text-align: center;
+            color: red;
+            font-family: Arial, sans-serif;
+        }
+        .glow {
+            text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red;
+        }
+        .btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: darkred;
+        }
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .team-name {
+            margin-top: 30px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="linear1"></div>
+    <div id="particle"></div>
+    <div class="centered">
+        <div id="textview1" class="glow">..</div>
+        <div class="timer" id="textview2">00:00</div>
+        <div class="timer" id="textview3">202501290001</div>
+        <div id="textview4" class="glow team-name">TEAM CRACKER VIP WEB</div>
+        <button class="btn" onclick="showResult()">RESULT</button>
+    </div>
+
+    <script>
+        let textview1 = document.getElementById('textview1');
+        let textview2 = document.getElementById('textview2');
+        let textview3 = document.getElementById('textview3');
+        let textview4 = document.getElementById('textview4');
+
+        // Timer code
+        setInterval(function() {
+            let currentDate = new Date();
+            let seconds = currentDate.getSeconds();
+            let remainingSeconds = 60 - seconds;
+            let minutes = currentDate.getMinutes();
+            let totalMinutes = currentDate.getHours() * 60 + minutes;
+
+            textview3.innerText = new Date().toISOString().slice(0, 10).replace(/-/g, '') + String(10001 + totalMinutes).padStart(5, '0');
+            textview2.innerText = String(remainingSeconds).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+        }, 1000);
+
+        // Button click to show result
+        function showResult() {
+            let random = Math.random();
+            if (random < 0.5) {
+                textview1.innerText = "BIG";
+                textview1.classList.add('glow');
+            } else {
+                textview1.innerText = "SMALL";
+                textview1.classList.remove('glow');
+            }
+        }
+    </script>
+</body>
+</html>
